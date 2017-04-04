@@ -13,6 +13,8 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "eventemitter3": "^2.0.3",
+    "ez-flux": "^0.6.1",
     "vue": "^2.2.2",
     "vue-router": "^2.2.0"
   },
