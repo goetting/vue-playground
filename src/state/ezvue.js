@@ -1,36 +1,38 @@
 import EZFlux from 'ez-flux';
 import ezFlux from './ezFlux';
 
-export default class EZVue {
-  constructor(ezFlux) {
-    this.ezFlux = ezFlux;
+class EZVue {
+  constructor(ez) {
+    this.ez = ez;
   }
   addState(data, stateMap) {
-    const result = data;
+    const stateFulData = data;
     const handlers = [];
 
-    Object.keys(stateMap).forEach(scopeName => {
-      const { change } = EZFlux.getEventNames(scopeName);
-      const assignEzState = () => {
-        stateMap[scopeName].forEach((key) => {
-          result[scopeName][key] = this.ezFlux.state[scopeName][key];
-        });
-      };
+    Object
+      .keys(stateMap)
+      .forEach((scopeName) => {
+        const { change } = EZFlux.getEventNames(scopeName);
+        const assignEzState = () =>
+          stateMap[scopeName].forEach((key) => {
+            stateFulData[scopeName][key] = this.ez.state[scopeName][key];
+          });
 
-      stateMap[scopeName] = {};
-      handlers.push([change, assignEzState]);
-      assignEzState();
-      ezFlux.on(change, assignEzState);
-    });
+        stateFulData[scopeName] = {};
+        assignEzState();
 
-    Object.defineProperty(result, 'removeListeners', {
+        handlers.push([change, assignEzState]);
+        this.ez.on(change, assignEzState);
+      });
+
+    Object.defineProperty(stateFulData, 'removeListeners', {
       enumerable: false,
       value: () =>
         handlers.forEach(([eventName, handler]) =>
-          this.ezFlux.removeListener(eventName, handler)
+          this.ez.removeListener(eventName, handler),
         ),
     });
-    return result;
+    return stateFulData;
   }
 }
 

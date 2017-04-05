@@ -4,36 +4,29 @@
     <todo-form @submitTodo="addTodo" />
     <ul>
       <todo-item
-        v-for="(item, i) in items"
+        v-for="(item, i) in todo.items"
         :key="i"
         :id="i"
         :todo-text="item.todoText"
-        @remove="removeItem"
       />
     </ul>
   </div>
 </template>
 
 <script>
+import ezFlux from '@/state/ezFlux';
+import ezVue from '@/state/ezVue';
 import TodoForm from './TodoForm';
 import TodoItem from './TodoItem';
 
+const data = ezVue.addState({}, { todo: ['items'] });
+
 export default {
   name: 'TodoContainer',
-  data: () => ({
-    items: [
-      { todoText: 'catch cat' },
-      { todoText: 'clean cat' },
-      { todoText: 'feed cat' },
-      { todoText: 'eat cat' },
-    ],
-  }),
+  data: () => data,
   methods: {
     addTodo(todoText) {
-      this.items.push({ todoText });
-    },
-    removeItem(i) {
-      this.items.splice(i, 1);
+      ezFlux.actions.todo.add(todoText);
     },
   },
   components: {

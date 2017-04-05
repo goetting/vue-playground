@@ -15,6 +15,7 @@
   "dependencies": {
     "eventemitter3": "^2.0.3",
     "ez-flux": "^0.6.1",
+    "regenerator-runtime": "^0.10.3",
     "vue": "^2.2.2",
     "vue-router": "^2.2.0"
   },

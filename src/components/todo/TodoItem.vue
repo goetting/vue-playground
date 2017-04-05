@@ -1,17 +1,19 @@
 <template>
   <li class="TodoItem">
     {{ todoText }}
-    <span @click="remove" @enter="remove">X</span>
+    <span v-on:click="remove">X</span>
   </li>
 </template>
 
 <script>
+import ezFlux from '@/state/ezFlux';
+
 export default {
   name: 'TodoItem',
   props: { todoText: String, id: Number },
   methods: {
     remove() {
-      this.$emit('remove', this.id);
+      ezFlux.actions.todo.remove(this.id);
     },
   },
 };
