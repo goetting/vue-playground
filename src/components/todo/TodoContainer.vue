@@ -15,11 +15,10 @@
 
 <script>
 import ezFlux from '@/state/ezFlux';
-import ezVue from '@/state/ezVue';
 import TodoForm from './TodoForm';
 import TodoItem from './TodoItem';
 
-const data = ezVue.addState({}, { todo: ['items'] });
+const data = ezFlux.plugins.project({ todo: ['items'] });
 
 export default {
   name: 'TodoContainer',

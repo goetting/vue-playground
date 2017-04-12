@@ -1,4 +1,5 @@
 import EZFlux from 'ez-flux';
+import ezProjector from 'ez-projector';
 
 const ezFlux = new EZFlux({
   todo: {
@@ -23,6 +24,7 @@ const ezFlux = new EZFlux({
   },
 }, {
   console: 'log',
+  plugins: [ezProjector],
 });
 
 if (typeof window !== 'undefined') window.ezFlux = ezFlux;
